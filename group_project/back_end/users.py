@@ -8,7 +8,7 @@ ORM.dbpath = 'medical.db'
 class User(ORM):
     tablename = 'users'
     fields = ['username', 'first_name', 'last_name', 'password_hash', 
-            'security_question', 'token', 
+            'email', 'security_question', 'token', 
             'api_key', 'provider_pk' ]
 
     def __init__(self, **kwargs):
@@ -17,6 +17,7 @@ class User(ORM):
         self.first_name = kwargs.get('first_name')
         self.last_name = kwargs.get('last_name')
         self.password_hash = kwargs.get('password_hash')
+        self.email = kwargs.get('email')
         self.security_question = kwargs.get('security_question')
         self.token = kwargs.get('token')
         self.api_key = kwargs.get('api_key')
@@ -50,7 +51,7 @@ class User(ORM):
         user_file.save()
         self.save()
 
-    def remove_file(self, user_files_pk)
+    def remove_file(self, user_files_pk):
         user_file = User_files.one_from_where_clause('WHERE pk=?', (user_files_pk,))
         user_file.delete()
         user_file.save()

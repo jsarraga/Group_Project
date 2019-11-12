@@ -17,7 +17,8 @@ def schema(dbpath=DBPATH):
                 username VARCHAR (16),
                 first_name VARCHAR,
                 last_name VARCHAR,
-                password_hash VARCHAR,
+                password_hash VARCHAR (128),
+                email VARCHAR,
                 security_question BLOB,
                 token VARCHAR,
                 api_key VARCHAR,
@@ -47,8 +48,11 @@ def schema(dbpath=DBPATH):
             hospital VARCHAR,
             doctor_name VARCHAR,
             department VARCHAR,
-            password VARCHAR(128),
-            token VARCHAR
+            username VARCHAR (16),
+            email VARCHAR,
+            password_hash VARCHAR(128),
+            token VARCHAR,
+            api_key VARCHAR
             ); """
 
         cur.execute(SQL)

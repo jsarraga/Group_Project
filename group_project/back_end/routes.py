@@ -8,8 +8,8 @@ import util
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/create", methods=['POST'])
-def create_account():
+@app.route("/api/user/create", methods=['POST'])
+def create_user_account():
     api_key = util.random_api_key()
     data = request.get_json()
     user = User()
@@ -17,8 +17,28 @@ def create_account():
     password = data['password']
     hashed_pass = util.hash_password(password)
     user.password_hash = hashed_pass
+    user.first_name = data['first_name']
+    user.last_name = data['last_name']
+    user.email = data['email']
     user.api_key = api_key
     user.save()
+    return jsonify({"api_key": account.api_key})
+
+@app.route("/api/provider/create", methods=['POST'])
+def create_provider_account():
+    api_key = util.random_api_key()
+    data = request.get_json()
+    provider = Provider()
+    provider.username = data['username']
+    password = data['password']
+    hashed_pass = util.hash_password(password)
+    provider.password_hash = hashed_pass
+    provider.api_key = api_key
+    provider.hospital = data['hospital']
+    provider.department = data['department']
+    provider.doctor_name = data['doctor_name']
+    provider.email = data['email']
+    provider.save()
     return jsonify({"api_key": account.api_key})
 
 @app.route('/user/login', methods=['POST'])
@@ -51,7 +71,7 @@ def get_files(api_key):
 def add_file(api_key):
     user = User.api_authenticate(api_key)
     data = request.get_json()
-    user.add_file(blood_type=data["blood_type"], allergies=data["allergies"]
+    user.add_file(blood_type=data["blood_type"], allergies=data["allergies"],
                 medications=data['medications'], user_pk=user.pk)
 
 # fix. how to get user_file_pk
