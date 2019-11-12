@@ -1,0 +1,3 @@
+[submodule "group_frontEnd"]
+	path = group_frontEnd
+	url = https://github.com/aliensmart/group_frontEnd
