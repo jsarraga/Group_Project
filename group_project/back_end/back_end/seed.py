@@ -6,7 +6,7 @@ with sqlite3.connect("medical.db") as connection:
     SQL = """ INSERT INTO users(
             username, first_name, last_name, password_hash, email,
             security_question, token, api_key, provider_pk)
-            VALUES(?,?,?,?,?,?,?,?); """
+            VALUES(?,?,?,?,?,?,?,?,?); """
 
     values = [
         ['justin', 'justin', 'sarraga', 'pwd', 'jsarraga@gmail.com', 'byte', 'token', '12345', '1'],
@@ -30,10 +30,10 @@ with sqlite3.connect("medical.db") as connection:
         cur.execute(SQL, value)
 
     SQL = """ INSERT INTO providers(
-            hospital, doctor_name, department, username, password,
-            token, api_key)
-            VALUES(?,?,?,?,?); """
+            hospital, doctor_name, department, username, email,
+            password_hash, token, api_key)
+            VALUES(?,?,?,?,?,?,?,?); """
 
-    values = ['Byte Hospital', 'Dr. Smith', 'surgery', 'drsmith', 'pwd', 'token', '12345']    
+    values = ['Byte Hospital', 'Dr. Smith', 'surgery', 'drsmith', 'drsmith@hospital.com', 'pwd', 'token', '12345']    
 
     cur.execute(SQL, values)
